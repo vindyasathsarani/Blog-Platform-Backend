@@ -7,6 +7,9 @@ const dotenv = require('dotenv');
 // Load environment variables
 dotenv.config();
 
+// Import routes
+const authRoutes = require('./routes/authRoutes');
+
 // Initialize express app
 const app = express();
 
@@ -14,6 +17,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
+
+// Routes
+app.use('/api/auth', authRoutes);
 
 // Default route
 app.get('/', (req, res) => {
