@@ -9,6 +9,7 @@ dotenv.config();
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 // Initialize express app
 const app = express();
@@ -20,6 +21,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 
 // Default route
 app.get('/', (req, res) => {
