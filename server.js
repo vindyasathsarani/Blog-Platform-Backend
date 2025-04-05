@@ -10,6 +10,7 @@ dotenv.config();
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 // Initialize express app
 const app = express();
@@ -21,6 +22,8 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/posts/:postId/comments', commentRoutes);
+app.use('/api/comments', commentRoutes);
 app.use('/api/posts', postRoutes);
 
 // Default route
