@@ -13,6 +13,7 @@ const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
+
 // Initialize express app
 const app = express();
 
