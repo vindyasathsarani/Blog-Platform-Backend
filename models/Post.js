@@ -17,8 +17,9 @@ const PostSchema = new mongoose.Schema(
       default: '',
     },
     category: {
-      type: String,
-      required: [true, 'Please provide a category'],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
+      required: true,
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
