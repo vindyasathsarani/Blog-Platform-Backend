@@ -15,7 +15,11 @@ exports.createPost = async (req, res) => {
       author: req.user.id,
     });
 
-    res.status(201).json(post);
+    const populatedPost = await Post.findById(post._id)
+      .populate('author', 'name email profilePicture')
+      .populate('category', 'name slug');
+
+    res.status(201).json(populatedPost);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -28,7 +32,8 @@ exports.getPosts = async (req, res) => {
   try {
     const posts = await Post.find()
       .sort({ createdAt: -1 })
-      .populate('author', 'name email profilePicture');
+      .populate('author', 'name email profilePicture')
+      .populate('category', 'name slug');
 
     res.json(posts);
   } catch (error) {
@@ -143,29 +148,4 @@ exports.likePost = async (req, res) => {
 // @desc    Get posts by category
 // @route   GET /api/posts/category/:category
 // @access  Public
-exports.getPostsByCategory = async (req, res) => {
-  try {
-    const posts = await Post.find({ category: req.params.category })
-      .sort({ createdAt: -1 })
-      .populate('author', 'name email profilePicture');
-
-    res.json(posts);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// @desc    Get posts by user
-// @route   GET /api/posts/user/:userId
-// @access  Public
-exports.getPostsByUser = async (req, res) => {
-  try {
-    const posts = await Post.find({ author: req.params.userId })
-      .sort({ createdAt: -1 })
-      .populate('author', 'name email profilePicture');
-
-    res.json(posts);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// Remove the getPostsByCategory method as it's now in the category controller
